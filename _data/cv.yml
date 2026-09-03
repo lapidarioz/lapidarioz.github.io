@@ -1,0 +1,66 @@
+cv:
+  name: Rafael Luiz Testa, PhD
+  label: Applied AI / Machine Learning Engineer & Researcher
+  image: ""
+  summary: >
+    Research engineer working across computer vision, generative AI, reliable LLM systems,
+    data infrastructure, and rigorous evaluation.
+
+  social_networks:
+    - network: GitHub
+      username: lapidarioz
+    - network: LinkedIn
+      username: rafaelluiztesta
+
+  sections:
+    Education:
+      - institution: University of São Paulo
+        area: Information Systems and computing-related research
+        studyType: PhD
+        highlights:
+          - Research in computer vision and generative AI.
+
+    Research Experience:
+      - company: University of Southern California
+        position: Fulbright Visiting Researcher
+        highlights:
+          - Research experience spanning facial analysis, generative vision, and evaluation.
+
+    Current Focus:
+      - name: Reliable natural-language analytics
+        summary: >
+          End-to-end applied AI and research-engineering work involving data ingestion,
+          PostgreSQL modelling, ontology and schema grounding, Text-to-SQL, validation,
+          APIs, testing, deployment, and operational support.
+      - name: Reliable model-to-system integration
+        summary: >
+          Treating model-generated output as untrusted until it has passed independent
+          structural, schema, execution, and presentation checks.
+
+    Selected Publications:
+      - title: Enhancing Temporal Coherence in Image-to-Video Facial Expression Synthesis
+        publisher: IEEE Access
+        releaseDate: "2025"
+        url: https://doi.org/10.1109/ACCESS.2025.3612820
+      - title: Deepfake detection on videos based on ratio images
+        publisher: 12th International Congress on Advanced Applied Informatics
+        releaseDate: "2022"
+        url: https://doi.org/10.1109/IIAIAAI55812.2022.00086
+      - title: Facial expression synthesis based on similar faces
+        publisher: Multimedia Tools and Applications
+        releaseDate: "2021"
+        url: https://doi.org/10.1007/s11042-021-11525-4
+      - title: Synthesis of facial expressions in photographs
+        publisher: ACM Computing Surveys
+        releaseDate: "2019"
+        url: https://doi.org/10.1145/3292652
+
+    Technical Focus:
+      - name: AI / ML
+        keywords: Python, PyTorch, TensorFlow, scikit-learn, OpenCV, LLMs, RAG, Text-to-SQL
+      - name: Backend / data
+        keywords: FastAPI, Pydantic, WebSockets, PostgreSQL, pgvector, MySQL, REST APIs
+      - name: Infrastructure
+        keywords: Docker, Docker Compose, Nginx, GitHub Actions, AWS, Ansible, Linux
+      - name: Research practice
+        keywords: Experiment design, model evaluation, ablation studies, error analysis, reproducibility
