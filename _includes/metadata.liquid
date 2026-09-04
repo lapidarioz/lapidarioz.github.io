@@ -44,14 +44,16 @@
   <meta property="og:title" content="{{ document_title | escape }}">
   <meta property="og:url" content="{{ canonical_url }}">
   <meta property="og:description" content="{{ description | escape }}">
-  {% if image_url %}<meta property="og:image" content="{{ image_url }}">
-  <meta property="og:image:alt" content="Portrait of Rafael Luiz Testa">{% endif %}
+  {% if image_url -%}
+    <meta property="og:image" content="{{ image_url }}"> <meta property="og:image:alt" content="Portrait of Rafael Luiz Testa">
+  {%- endif %}
   <meta property="og:locale" content="{{ site.lang }}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ document_title | escape }}">
   <meta name="twitter:description" content="{{ description | escape }}">
-  {% if image_url %}<meta name="twitter:image" content="{{ image_url }}">
-  <meta name="twitter:image:alt" content="Portrait of Rafael Luiz Testa">{% endif %}
+  {% if image_url -%}
+    <meta name="twitter:image" content="{{ image_url }}"> <meta name="twitter:image:alt" content="Portrait of Rafael Luiz Testa">
+  {%- endif %}
 {% endif %}
 
 {% if site.serve_schema_org %}
@@ -62,38 +64,38 @@
   {% capture scholar_url %}https://scholar.google.com/citations?user={{ site.data.socials.scholar_userid }}{% endcapture %}
   {% capture orcid_url %}https://orcid.org/{{ site.data.socials.orcid_id }}{% endcapture %}
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Person",
-        "@id": "{{ site.url }}/#person",
-        "name": {{ site.seo.person_name | jsonify }},
-        "alternateName": {{ site.seo.short_name | jsonify }},
-        "url": "{{ site.url }}/",
-        "image": {{ image_url | jsonify }},
-        "jobTitle": {{ site.seo.job_title | jsonify }},
-        "sameAs": [{{ github_url | strip | jsonify }}, {{ linkedin_url | strip | jsonify }}, {{ scholar_url | strip | jsonify }}, {{ orcid_url | strip | jsonify }}],
-        "knowsAbout": {{ site.seo.knows_about | jsonify }}
-      },
-      {
-        "@type": "WebSite",
-        "@id": "{{ site.url }}/#website",
-        "url": "{{ site.url }}/",
-        "name": {{ site.seo.site_name | jsonify }},
-        "description": {{ site.description | strip | jsonify }},
-        "publisher": { "@id": "{{ site.url }}/#person" }
-      },
-      {
-        "@type": "{% if page.collection == 'projects' %}CreativeWork{% else %}WebPage{% endif %}",
-        "@id": "{{ canonical_url }}#webpage",
-        "url": {{ canonical_url | jsonify }},
-        "name": {{ page_title | jsonify }},
-        "description": {{ description | jsonify }},
-        "isPartOf": { "@id": "{{ site.url }}/#website" },
-        "author": { "@id": "{{ site.url }}/#person" }
-      }
-    ]
-  }
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "{{ site.url }}/#person",
+          "name": {{ site.seo.person_name | jsonify }},
+          "alternateName": {{ site.seo.short_name | jsonify }},
+          "url": "{{ site.url }}/",
+          "image": {{ image_url | jsonify }},
+          "jobTitle": {{ site.seo.job_title | jsonify }},
+          "sameAs": [{{ github_url | strip | jsonify }}, {{ linkedin_url | strip | jsonify }}, {{ scholar_url | strip | jsonify }}, {{ orcid_url | strip | jsonify }}],
+          "knowsAbout": {{ site.seo.knows_about | jsonify }}
+        },
+        {
+          "@type": "WebSite",
+          "@id": "{{ site.url }}/#website",
+          "url": "{{ site.url }}/",
+          "name": {{ site.seo.site_name | jsonify }},
+          "description": {{ site.description | strip | jsonify }},
+          "publisher": { "@id": "{{ site.url }}/#person" }
+        },
+        {
+          "@type": "{% if page.collection == 'projects' %}CreativeWork{% else %}WebPage{% endif %}",
+          "@id": "{{ canonical_url }}#webpage",
+          "url": {{ canonical_url | jsonify }},
+          "name": {{ page_title | jsonify }},
+          "description": {{ description | jsonify }},
+          "isPartOf": { "@id": "{{ site.url }}/#website" },
+          "author": { "@id": "{{ site.url }}/#person" }
+        }
+      ]
+    }
   </script>
 {% endif %}
