@@ -2,6 +2,7 @@
 layout: default
 permalink: /cv/
 title: CV
+seo_title: Rafael Testa, PhD | CV
 nav: true
 nav_order: 4
 redirect: https://www.linkedin.com/in/rafaelluiztesta/

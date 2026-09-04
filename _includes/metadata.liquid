@@ -1,0 +1,99 @@
+{% comment %}
+  Site-specific metadata override for al-folio Core. It intentionally retains the
+  theme's front-matter-driven description behavior while providing precise titles,
+  complete social cards, and one coherent identity graph.
+{% endcomment %}
+{% assign description = page.description | default: site.description %}
+{% assign canonical_url = page.url | replace: 'index.html', '' | absolute_url %}
+{% assign page_title = page.seo_title | default: page.title %}
+{% if page.seo_title %}
+  {% assign document_title = page.seo_title %}
+{% elsif page.url == '/' %}
+  {% assign document_title = site.title %}
+{% elsif page.title and page.title != 'blank' %}
+  {% assign document_title = page.title | append: ' | ' | append: site.seo.short_name %}
+{% else %}
+  {% assign document_title = site.title %}
+{% endif %}
+{% assign image_source = page.og_image | default: site.og_image | default: site.seo.image %}
+{% if image_source contains '://' %}
+  {% assign image_url = image_source %}
+{% else %}
+  {% assign image_url = image_source | absolute_url %}
+{% endif %}
+{% assign is_article = false %}
+{% if page.collection == 'projects' or page.url contains '/blog/' %}
+  {% assign is_article = true %}
+{% endif %}
+
+<!-- Standard metadata -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{{ document_title }}</title>
+<meta name="author" content="{{ site.seo.person_name }}">
+<meta name="description" content="{{ description | escape }}">
+{% if page.keywords or site.keywords %}
+  <meta name="keywords" content="{{ page.keywords | default: site.keywords | escape }}">
+{% endif %}
+
+{% if site.serve_og_meta %}
+  <!-- Open Graph and X card -->
+  <meta property="og:site_name" content="{{ site.seo.site_name | escape }}">
+  <meta property="og:type" content="{% if is_article %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{{ document_title | escape }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:description" content="{{ description | escape }}">
+  {% if image_url %}<meta property="og:image" content="{{ image_url }}">
+  <meta property="og:image:alt" content="Portrait of Rafael Luiz Testa">{% endif %}
+  <meta property="og:locale" content="{{ site.lang }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ document_title | escape }}">
+  <meta name="twitter:description" content="{{ description | escape }}">
+  {% if image_url %}<meta name="twitter:image" content="{{ image_url }}">
+  <meta name="twitter:image:alt" content="Portrait of Rafael Luiz Testa">{% endif %}
+{% endif %}
+
+{% if site.serve_schema_org %}
+  <!-- Schema.org: one person and website identity graph, plus a page-level entity. -->
+  {% comment %} Profile URLs are derived from the repository's verified social data. {% endcomment %}
+  {% capture github_url %}https://github.com/{{ site.data.socials.github_username }}{% endcapture %}
+  {% capture linkedin_url %}https://www.linkedin.com/in/{{ site.data.socials.linkedin_username }}{% endcapture %}
+  {% capture scholar_url %}https://scholar.google.com/citations?user={{ site.data.socials.scholar_userid }}{% endcapture %}
+  {% capture orcid_url %}https://orcid.org/{{ site.data.socials.orcid_id }}{% endcapture %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "{{ site.url }}/#person",
+        "name": {{ site.seo.person_name | jsonify }},
+        "alternateName": {{ site.seo.short_name | jsonify }},
+        "url": "{{ site.url }}/",
+        "image": {{ image_url | jsonify }},
+        "jobTitle": {{ site.seo.job_title | jsonify }},
+        "sameAs": [{{ github_url | strip | jsonify }}, {{ linkedin_url | strip | jsonify }}, {{ scholar_url | strip | jsonify }}, {{ orcid_url | strip | jsonify }}],
+        "knowsAbout": {{ site.seo.knows_about | jsonify }}
+      },
+      {
+        "@type": "WebSite",
+        "@id": "{{ site.url }}/#website",
+        "url": "{{ site.url }}/",
+        "name": {{ site.seo.site_name | jsonify }},
+        "description": {{ site.description | strip | jsonify }},
+        "publisher": { "@id": "{{ site.url }}/#person" }
+      },
+      {
+        "@type": "{% if page.collection == 'projects' %}CreativeWork{% else %}WebPage{% endif %}",
+        "@id": "{{ canonical_url }}#webpage",
+        "url": {{ canonical_url | jsonify }},
+        "name": {{ page_title | jsonify }},
+        "description": {{ description | jsonify }},
+        "isPartOf": { "@id": "{{ site.url }}/#website" },
+        "author": { "@id": "{{ site.url }}/#person" }
+      }
+    ]
+  }
+  </script>
+{% endif %}

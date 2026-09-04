@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Projects
+seo_title: AI & Machine Learning Projects | Rafael Testa
 permalink: /projects/
 description: Applied AI, computer vision, and machine learning engineering projects by Rafael Testa.
 nav: true

@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Home
+seo_title: Rafael Testa, PhD | Applied AI & Machine Learning Engineer
 permalink: /
-description: Rafael Testa develops and evaluates AI systems across computer vision, generative models, natural-language analytics, and machine learning engineering.
+description: Rafael Luiz Testa, PhD, is an Applied AI and Machine Learning Engineer and researcher working on computer vision, generative AI, reliable AI systems, LLM-based analytics, and research engineering.
 ---
 
 <article class="portfolio-home">
